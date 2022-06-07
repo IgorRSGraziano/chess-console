@@ -42,6 +42,17 @@ namespace Chess.Board
             p.Position = pos;
         }
 
+        public Piece RemovePiece(Position pos)
+        {
+            if(Piece(pos) == null)
+            {
+                return null;
+            }
+            Piece aux = Piece(pos);
+            Pieces[pos.Row, pos.Collum] = null;
+            return aux;
+        }
+
 
         public bool IsValidPosition(Position pos)
         {

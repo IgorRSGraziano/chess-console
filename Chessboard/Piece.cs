@@ -14,6 +14,10 @@ namespace Chess.Board
             Color = color;
             MovementsPerformed = 0;
         }
+        public void IncrementMovementsPerformed()
+        {
+            MovementsPerformed++;
+        }
 
     }
 }
