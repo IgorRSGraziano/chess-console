@@ -11,6 +11,12 @@ namespace Chess.Board
             Collum = collum;
         }
 
+        public void SetValues(int row, int collum)
+        {
+            Row = row;
+            Collum = collum;
+        }
+
         public override string ToString()
         {
             return $"{Row}, {Collum}";
