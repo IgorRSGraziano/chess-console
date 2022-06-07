@@ -36,7 +36,7 @@ namespace Chess.Game
             Chessboard.PutPiece(new Tower(Chessboard, Color.White), new ChessPosition('b', 1).ToPosition());
 
             Chessboard.PutPiece(new Tower(Chessboard, Color.Black), new ChessPosition('c', 8).ToPosition());
-            Chessboard.PutPiece(new King(Chessboard, Color.Black), new ChessPosition('e', 8).ToPosition());
+            Chessboard.PutPiece(new King(Chessboard, Color.Black), new ChessPosition('e', 5).ToPosition());
             Chessboard.PutPiece(new Tower(Chessboard, Color.Black), new ChessPosition('b', 8).ToPosition());
         }
     }
