@@ -1,5 +1,5 @@
 ﻿using Chess.Pieces;
-
+using Chess.Game;
 using Chess.Board;
 
 namespace Chess
@@ -8,14 +8,21 @@ namespace Chess
     {
         public static void Main()
         {
-            Chessboard board = new Chessboard(8, 8);
+            ChessGame match = new ChessGame();
 
-            board.PutPiece(new King(board, Color.Black), new Position(1, 1));
-            board.PutPiece(new King(board, Color.White), new Position(3, 1));
-            board.PutPiece(new Tower(board, Color.Black), new Position(2, 3));
+            while (!match.HasEnded)
+            {
+                Console.Clear();
+                Screen.PrintChessboard(match.Chessboard);
 
+                Console.Write("Origin: ");
+                Position origin = Screen.ReadChessPosition().ToPosition();
 
-            Screen.PrintChessboard(board);
+                Console.Write("Destiny: ");
+                Position destiny = Screen.ReadChessPosition().ToPosition();
+
+                match.MovePiece(origin, destiny);
+            }
         }
     }
 }
