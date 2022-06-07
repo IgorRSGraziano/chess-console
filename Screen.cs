@@ -13,15 +13,7 @@ namespace Chess.Board
                 Console.Write(8 - i + " ");
                 for (int j = 0; j < board.Collums; j++)
                 {
-                    if (board.Piece(i, j) == null)
-                    {
-                        Console.Write("- ");
-                    }
-                    else
-                    {
-                        PrintPiece(board.Piece(i, j));
-                        Console.Write(" ");
-                    }
+                    PrintPiece(board.Piece(i, j));
                 }
                 Console.WriteLine("");
             }
@@ -30,20 +22,28 @@ namespace Chess.Board
 
         public static void PrintPiece(Piece piece)
         {
-            if (piece.Color == Color.White)
+            if (piece == null)
             {
-                ConsoleColor aux = Console.ForegroundColor;
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.Write(piece);
-                Console.ForegroundColor = aux;
+                Console.Write("-");
             }
-            else if (piece.Color == Color.Black)
+            else
             {
-                ConsoleColor aux = Console.ForegroundColor;
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.Write(piece);
-                Console.ForegroundColor = aux;
+                if (piece.Color == Color.White)
+                {
+                    ConsoleColor aux = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.Write(piece);
+                    Console.ForegroundColor = aux;
+                }
+                else if (piece.Color == Color.Black)
+                {
+                    ConsoleColor aux = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.Write(piece);
+                    Console.ForegroundColor = aux;
+                }
             }
+            Console.Write(" ");
         }
 
         public static ChessPosition ReadChessPosition()
