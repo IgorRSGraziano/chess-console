@@ -12,26 +12,36 @@ namespace Chess
 
             while (!match.HasEnded)
             {
-                Console.Clear();
-                Screen.PrintChessboard(match.Chessboard);
+                try
+                {
+                    Console.Clear();
+                    Screen.PrintChessboard(match.Chessboard);
 
-                Console.WriteLine();
-                Console.WriteLine("Turn: " + match.Turn);
-                Console.WriteLine("Player: " + match.ActualPlayer);
-                Console.WriteLine();
-                Console.Write("Origin: ");
-                Position origin = Screen.ReadChessPosition().ToPosition();
+                    Console.WriteLine();
+                    Console.WriteLine("Turn: " + match.Turn);
+                    Console.WriteLine("Player: " + match.ActualPlayer);
+                    Console.WriteLine();
+                    Console.Write("Origin: ");
+                    Position origin = Screen.ReadChessPosition().ToPosition();
 
-                bool[,] possiblePositions = match.Chessboard.Piece(origin).PossibleMoves();
+                    match.ValidityOriginPosition(origin);
 
-                Console.Clear();
-                Screen.PrintChessboard(match.Chessboard, possiblePositions);
+                    bool[,] possiblePositions = match.Chessboard.Piece(origin).PossibleMoves();
 
-                Console.WriteLine();
-                Console.Write("Destiny: ");
-                Position destiny = Screen.ReadChessPosition().ToPosition();
+                    Console.Clear();
+                    Screen.PrintChessboard(match.Chessboard, possiblePositions);
 
-                match.MakeAPlay(origin, destiny);
+                    Console.WriteLine();
+                    Console.Write("Destiny: ");
+                    Position destiny = Screen.ReadChessPosition().ToPosition();
+
+                    match.MakeAPlay(origin, destiny);
+                }
+                catch (ChessboardException e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.ReadLine();
+                }
             }
         }
     }

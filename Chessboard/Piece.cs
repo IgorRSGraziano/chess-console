@@ -21,5 +21,19 @@ namespace Chess.Board
 
         public abstract bool[,] PossibleMoves();
 
+        public bool HasPossibleMoves()
+        {
+            bool[,] mat = PossibleMoves();
+            for (int i = 0; i < Chessboard.Rows; i++)
+            {
+                for (int j = 0; j < Chessboard.Collums; j++)
+                {
+                    if (mat[i, j])
+                        return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

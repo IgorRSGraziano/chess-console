@@ -45,6 +45,24 @@ namespace Chess.Game
                 ActualPlayer = Color.White;
         }
 
+        public void ValidityOriginPosition(Position origin)
+        {
+            if (Chessboard.Piece(origin) == null)
+            {
+                throw new ChessboardException("There is no piece in the selected position!");
+            }
+
+            if (Chessboard.Piece(origin).Color != ActualPlayer)
+            {
+                throw new ChessboardException("The selected piece is not yours!");
+            }
+
+            if (!Chessboard.Piece(origin).HasPossibleMoves())
+            {
+                throw new ChessboardException("The selected piece has no possible moves!");
+            }
+        }
+
         private void PutPieces()
         {
             Chessboard.PutPiece(new Tower(Chessboard, Color.White), new ChessPosition('c', 1).ToPosition());
