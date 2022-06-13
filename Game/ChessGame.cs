@@ -7,16 +7,16 @@ namespace Chess.Game
     public class ChessGame
     {
         public Chessboard Chessboard { get; private set; }
-        private int _turn;
-        private Color _actualPlayer;
+        public int Turn { get; private set; }
+        public Color ActualPlayer { get; private set; }
         public bool HasEnded { get; private set; }
 
 
         public ChessGame()
         {
             Chessboard = new Chessboard(8, 8);
-            _turn = 1;
-            _actualPlayer = Color.White;
+            Turn = 1;
+            ActualPlayer = Color.White;
             HasEnded = false;
             PutPieces();
         }
@@ -28,6 +28,21 @@ namespace Chess.Game
             Piece capturedPiece = Chessboard.RemovePiece(destiny);
             Chessboard.PutPiece(p, destiny);
 
+        }
+
+        public void MakeAPlay(Position origin, Position destiny)
+        {
+            MovePiece(origin, destiny);
+            Turn++;
+            ChangePlayer();
+        }
+
+        public void ChangePlayer()
+        {
+            if (ActualPlayer == Color.White)
+                ActualPlayer = Color.Black;
+            else
+                ActualPlayer = Color.White;
         }
 
         private void PutPieces()
