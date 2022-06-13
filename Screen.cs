@@ -20,6 +20,30 @@ namespace Chess.Board
             System.Console.WriteLine("* A B C D E F G H");
         }
 
+        public static void PrintChessboard(Chessboard board, bool[,] possiblePositions)
+        {
+            ConsoleColor originalBackground = Console.BackgroundColor;
+            ConsoleColor changedBackground = ConsoleColor.DarkGray;
+
+            for (int i = 0; i < board.Rows; i++)
+            {
+                Console.Write(8 - i + " ");
+                for (int j = 0; j < board.Collums; j++)
+                {
+                    if (possiblePositions[i, j] == true)
+                        Console.BackgroundColor = changedBackground;
+                    else
+                        Console.BackgroundColor = originalBackground;
+
+                    PrintPiece(board.Piece(i, j));
+                }
+
+                Console.BackgroundColor = originalBackground;
+                Console.WriteLine("");
+            }
+            System.Console.WriteLine("* A B C D E F G H");
+        }
+
         public static void PrintPiece(Piece piece)
         {
             if (piece == null)

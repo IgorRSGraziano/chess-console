@@ -44,7 +44,7 @@ namespace Chess.Board
 
         public Piece RemovePiece(Position pos)
         {
-            if(Piece(pos) == null)
+            if (Piece(pos) == null)
             {
                 return null;
             }
@@ -56,7 +56,7 @@ namespace Chess.Board
 
         public bool IsValidPosition(Position pos)
         {
-            if (pos.Row > 0 || pos.Row <= Rows || pos.Collum > 0 || pos.Collum <= Collums)
+            if (pos.Row < 0 || pos.Row >= Rows || pos.Collum < 0 || pos.Collum >= Collums)
                 return false;
             else
                 return true;
@@ -64,7 +64,7 @@ namespace Chess.Board
 
         public void ValidatePosition(Position pos)
         {
-            if (IsValidPosition(pos))
+            if (!IsValidPosition(pos))
                 throw new ChessboardException("Invalid Position!");
         }
     }
