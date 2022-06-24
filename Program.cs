@@ -35,6 +35,8 @@ namespace Chess
                     Console.Write("Destiny: ");
                     Position destiny = Screen.ReadChessPosition().ToPosition();
 
+                    match.ValidityDestinyPosition(origin, destiny);
+
                     match.MakeAPlay(origin, destiny);
                 }
                 catch (ChessboardException e)

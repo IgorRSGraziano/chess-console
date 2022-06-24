@@ -37,6 +37,12 @@ namespace Chess.Game
             ChangePlayer();
         }
 
+        public void ValidityDestinyPosition(Position origin, Position destiny)
+        {
+            if (!Chessboard.Piece(origin).CanMoveTo(destiny))
+                throw new ChessboardException("Invalid destiny position");
+        }
+
         public void ChangePlayer()
         {
             if (ActualPlayer == Color.White)
@@ -48,19 +54,14 @@ namespace Chess.Game
         public void ValidityOriginPosition(Position origin)
         {
             if (Chessboard.Piece(origin) == null)
-            {
                 throw new ChessboardException("There is no piece in the selected position!");
-            }
 
             if (Chessboard.Piece(origin).Color != ActualPlayer)
-            {
                 throw new ChessboardException("The selected piece is not yours!");
-            }
+
 
             if (!Chessboard.Piece(origin).HasPossibleMoves())
-            {
                 throw new ChessboardException("The selected piece has no possible moves!");
-            }
         }
 
         private void PutPieces()
