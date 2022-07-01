@@ -34,21 +34,34 @@ namespace Chess.Board
 
         public static void printCapturedPieces(ChessGame match)
         {
+            var aux = Console.ForegroundColor;
+
             Console.WriteLine("Captured pieces: ");
+
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.Write("White: ");
             PrintGroup(match.CapturedPieces(Color.White));
+            Console.ForegroundColor = aux;
             Console.WriteLine();
+
+
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("Black: ");
             PrintGroup(match.CapturedPieces(Color.Black));
+            Console.ForegroundColor = aux;
             Console.WriteLine();
         }
 
         public static void PrintGroup(HashSet<Piece> group)
         {
             Console.Write("[");
+            var count = group.Count;
+            int i = 0;
+
             foreach (Piece p in group)
             {
-                Console.Write(p + " ");
+                i++;
+                Console.Write($"{p}{(i == count ? "" : ", ")}");
             }
             Console.Write("]");
         }
