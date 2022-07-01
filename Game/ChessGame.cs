@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Chess.Board;
 using Chess.Pieces;
 
@@ -10,6 +11,8 @@ namespace Chess.Game
         public int Turn { get; private set; }
         public Color ActualPlayer { get; private set; }
         public bool HasEnded { get; private set; }
+        private HashSet<Piece> _pieces = new HashSet<Piece>();
+        private HashSet<Piece> _capturedPieces = new HashSet<Piece>();
 
 
         public ChessGame()
@@ -19,6 +22,9 @@ namespace Chess.Game
             ActualPlayer = Color.White;
             HasEnded = false;
             PutPieces();
+
+            _pieces = new HashSet<Piece>();
+            _capturedPieces = new HashSet<Piece>();
         }
 
         public void MovePiece(Position origin, Position destiny)
@@ -27,6 +33,9 @@ namespace Chess.Game
             p.IncrementMovementsPerformed();
             Piece capturedPiece = Chessboard.RemovePiece(destiny);
             Chessboard.PutPiece(p, destiny);
+
+            if (capturedPiece != null)
+                _capturedPieces.Add(capturedPiece);
 
         }
 
@@ -64,14 +73,43 @@ namespace Chess.Game
                 throw new ChessboardException("The selected piece has no possible moves!");
         }
 
+        public void PutNewPiece(char collum, int row, Piece piece)
+        {
+            Chessboard.PutPiece(piece, new ChessPosition(collum, row).ToPosition());
+            _pieces.Add(piece);
+        }
+
+        public HashSet<Piece> CapturedPieces(Color color)
+        {
+            HashSet<Piece> aux = new HashSet<Piece>();
+            foreach (Piece x in _capturedPieces)
+            {
+                if (x.Color == color)
+                    aux.Add(x);
+            }
+            return aux;
+        }
+
+        public HashSet<Piece> PiecesInGame(Color color)
+        {
+            HashSet<Piece> aux = new HashSet<Piece>();
+            foreach (Piece x in _pieces)
+            {
+                if (x.Color == color)
+                    aux.Add(x);
+            }
+            aux.ExceptWith(CapturedPieces(color));
+
+            return aux;
+        }
+
         private void PutPieces()
         {
-            Chessboard.PutPiece(new Tower(Chessboard, Color.White), new ChessPosition('c', 1).ToPosition());
-            Chessboard.PutPiece(new Tower(Chessboard, Color.White), new ChessPosition('b', 1).ToPosition());
-
-            Chessboard.PutPiece(new Tower(Chessboard, Color.Black), new ChessPosition('c', 8).ToPosition());
-            Chessboard.PutPiece(new King(Chessboard, Color.Black), new ChessPosition('e', 5).ToPosition());
-            Chessboard.PutPiece(new Tower(Chessboard, Color.Black), new ChessPosition('b', 8).ToPosition());
+            PutNewPiece('c', 1, new Tower(Chessboard, Color.White));
+            PutNewPiece('b', 1, new Tower(Chessboard, Color.White));
+            PutNewPiece('c', 8, new Tower(Chessboard, Color.Black));
+            PutNewPiece('e', 8, new Tower(Chessboard, Color.Black));
+            PutNewPiece('b', 8, new Tower(Chessboard, Color.Black));
         }
     }
 }
