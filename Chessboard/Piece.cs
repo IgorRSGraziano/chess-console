@@ -19,6 +19,11 @@ namespace Chess.Board
             MovementsPerformed++;
         }
 
+        public void DecrementMovementsPerformed()
+        {
+            MovementsPerformed--;
+        }
+
         public abstract bool[,] PossibleMoves();
 
         public bool HasPossibleMoves()
