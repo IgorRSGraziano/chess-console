@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Chess.Board;
 using Chess.Game;
 
@@ -17,8 +18,41 @@ namespace Chess.Board
                 }
                 Console.WriteLine("");
             }
-            System.Console.WriteLine("* A B C D E F G H");
+            Console.WriteLine("* A B C D E F G H");
         }
+
+        public static void PrintMatch(ChessGame match)
+        {
+            PrintChessboard(match.Chessboard);
+            Console.WriteLine();
+            printCapturedPieces(match);
+            Console.WriteLine();
+            Console.WriteLine("Turn: " + match.Turn);
+            Console.WriteLine("Player: " + match.ActualPlayer);
+            Console.WriteLine();
+        }
+
+        public static void printCapturedPieces(ChessGame match)
+        {
+            Console.WriteLine("Captured pieces: ");
+            Console.Write("White: ");
+            PrintGroup(match.CapturedPieces(Color.White));
+            Console.WriteLine();
+            Console.Write("Black: ");
+            PrintGroup(match.CapturedPieces(Color.Black));
+            Console.WriteLine();
+        }
+
+        public static void PrintGroup(HashSet<Piece> group)
+        {
+            Console.Write("[");
+            foreach (Piece p in group)
+            {
+                Console.Write(p + " ");
+            }
+            Console.Write("]");
+        }
+
 
         public static void PrintChessboard(Chessboard board, bool[,] possiblePositions)
         {
@@ -41,7 +75,7 @@ namespace Chess.Board
                 Console.BackgroundColor = originalBackground;
                 Console.WriteLine("");
             }
-            System.Console.WriteLine("* A B C D E F G H");
+            Console.WriteLine("* A B C D E F G H");
         }
 
         public static void PrintPiece(Piece piece)
